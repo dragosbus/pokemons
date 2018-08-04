@@ -5,7 +5,7 @@ const PokeList = props => {
     return(
         <ul>
             {props.pokemons.map(poke=> {
-                return <Pokemon {...poke}/>
+                return <Pokemon key={poke.name} {...poke}/>
             })}
         </ul>
     );

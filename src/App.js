@@ -7,7 +7,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state={
-      pokemons: []
+      pokemons: [],
+      activePage: 0,
+      limit: 50,
+      totalPages: 0
     };
   }
 
@@ -16,10 +19,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchData(`${baseURL}/pokemon/23/`)
+    this.fetchData(`${baseURL}/pokemon/?limit=${this.state.limit}&offset=0`)
       .then(res=>{
         this.setState(prevState=>({
-          pokemons: prevState.pokemons.concat(res)
+          pokemons: [...prevState.pokemons, ...res.results]
         }));
       })
   }
