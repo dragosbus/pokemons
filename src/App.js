@@ -11,8 +11,9 @@ class App extends Component {
     this.state={
       pokemons: [],
       activePage: 0,
-      limit: 50,
-      totalPages: 0
+      limit: 60,
+      totalPages: 0,
+      copy: []
     };
     this.handlePagination = this.handlePagination.bind(this);
   }
@@ -20,16 +21,21 @@ class App extends Component {
   fetchData(url) {
     return fetch(url).then(res=>res.json())
     .then(res=>{
-      let pages = Math.round(res.count / this.state.limit)
+      let pages = this.state.limit / 10;
+      console.log(res)
       this.setState(prevState=>({
         pokemons: [...prevState.pokemons, ...res.results],
-        totalPages: prevState.totalPages + pages
+        totalPages: prevState.totalPages + pages,
+        copy: [...prevState.copy, ...res.results]
       }));
     })
   }
 
   handlePagination(index) {
-    this.setState({activePage: index})
+    this.setState({
+      activePage: index-1,
+      copy: this.state.pokemons.slice(this.state.activePage, 10*index)
+    });
   }
 
   componentDidMount() {
@@ -39,7 +45,7 @@ class App extends Component {
   render() {
     return(
       <div>
-        <PokeList pokemons={this.state.pokemons}/>
+        <PokeList pokemons={this.state.copy}/>
         <Pagination
           items={this.state.totalPages}
           activePage={this.state.activePage}
