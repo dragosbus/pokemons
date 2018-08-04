@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import PokeList from './components/PokeList';
 const baseURL = 'https://pokeapi.co/api/v2';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state={
-
+      pokemons: []
     };
   }
 
@@ -16,14 +16,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchData(`${baseURL}/pokemon/1/`)
-      .then(res=>console.log(res))
+    this.fetchData(`${baseURL}/pokemon/23/`)
+      .then(res=>{
+        this.setState(prevState=>({
+          pokemons: prevState.pokemons.concat(res)
+        }));
+      })
   }
 
   render() {
     return(
       <div>
-         
+        <PokeList pokemons={this.state.pokemons}/>
       </div>
     );
   }
