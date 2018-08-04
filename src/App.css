@@ -1,0 +1,26 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.pagination p {
+  background: rgb(238, 242, 245);
+  color: rgb(8, 81, 165);
+  border: 1px solid rgba(20, 20, 20, 0.226);
+  padding: 1rem;
+  cursor: pointer;
+  transition: background 0.35s ease-in,
+              color 0.35s ease-in;
+}
+
+.pagination p:not(:first-child) {
+  border-left: none;
+}
+
+.pagination p:hover {
+  background: rgb(22, 101, 192);
+  color: #fff;
+}
