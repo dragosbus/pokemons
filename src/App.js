@@ -14,6 +14,7 @@ class App extends Component {
       limit: 50,
       totalPages: 0
     };
+    this.handlePagination = this.handlePagination.bind(this);
   }
 
   fetchData(url) {
@@ -27,6 +28,10 @@ class App extends Component {
     })
   }
 
+  handlePagination(index) {
+    this.setState({activePage: index})
+  }
+
   componentDidMount() {
     this.fetchData(`${baseURL}/pokemon/?limit=${this.state.limit}&offset=0`);
   }
@@ -38,7 +43,7 @@ class App extends Component {
         <Pagination
           items={this.state.totalPages}
           activePage={this.state.activePage}
-          onSelect={this.handlePagination}
+          clickPagination={this.handlePagination}
         />
       </div>
     );
