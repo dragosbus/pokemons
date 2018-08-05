@@ -18,20 +18,6 @@ class App extends Component {
     this.handlePagination = this.handlePagination.bind(this);
   }
 
-  fetchData(url) {
-    return fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        let pages = this.state.limit / 10;
-        console.log(res);
-        this.setState(prevState => ({
-          pokemons: [...prevState.pokemons, ...res.results],
-          totalPages: prevState.totalPages + pages,
-          copy: [...prevState.copy, ...res.results]
-        }));
-      });
-  }
-
   handlePagination(index) {
     this.setState({
       activePage: index - 1,
@@ -40,24 +26,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let serializedData;
-    if (!localStorage.getItem('pokemons')) {
-      serializedData = this.fetchData(`${baseURL}/pokemon/?limit=${this.state.limit}&offset=0`);
-
-      localStorage.setItem('pokemons', JSON.stringify(serializedData));
+    let data = localStorage.getItem('pokemons');
+    if (data === null) {
+      fetch(`${baseURL}/pokemon/?limit=${this.state.limit}&offset=0`)
+        .then(res => res.json())
+        .then(res => localStorage.setItem('pokemons', JSON.stringify(res.results)))
+        .catch(err => console.log(err));
     } else {
-      serializedData = localStorage.getItem('pokemons');
+      this.setState({
+        pokemons: JSON.parse(data),
+        totalPages: this.state.totalPages + this.state.limit / 10
+      });
     }
-
-    this.setState({
-      pokemons: JSON.parse(serializedData)
-    });
   }
 
   render() {
     return (
       <div>
-        <PokeList pokemons={this.state.copy} />
+        <PokeList pokemons={this.state.pokemons} />
         <Pagination
           items={this.state.totalPages}
           activePage={this.state.activePage}
