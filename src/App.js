@@ -19,10 +19,12 @@ class App extends Component {
   }
 
   handlePagination(index) {
-    this.setState({
-      activePage: index - 1,
-      copy: this.state.pokemons.slice(this.state.activePage, 10 * index)
-    });
+    this.setState(
+      prevState => ({
+        activePage: index - 1,
+        copy: prevState.pokemons.slice((index-1) * 10, index * 10)
+      })
+    );
   }
 
   componentDidMount() {
@@ -35,6 +37,7 @@ class App extends Component {
     } else {
       this.setState({
         pokemons: JSON.parse(data),
+        copy: JSON.parse(data).slice(0, 10),
         totalPages: this.state.totalPages + this.state.limit / 10
       });
     }
@@ -43,7 +46,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <PokeList pokemons={this.state.pokemons} />
+        <PokeList pokemons={this.state.copy} />
         <Pagination
           items={this.state.totalPages}
           activePage={this.state.activePage}
