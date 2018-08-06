@@ -24,3 +24,41 @@
   background: rgb(22, 101, 192);
   color: #fff;
 }
+
+.pokemons-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokemon {
+  width: 80%;
+  margin: 1rem auto;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(2,2,2,0.25);
+  padding: 1rem;
+  border-radius: 5px;
+  animation: fade-in 0.45s ease-in;
+}
+
+@media (min-width: 660px) {
+  .pokemon {
+    width: 45%;
+  }
+}
+
+@media(min-width: 960px) {
+  .pokemon {
+    width: 30%;
+  }
+}
+
+@keyframes fade-in{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -3,7 +3,7 @@ import Pokemon from './PokeElementList';
 
 const PokeList = props => {
     return(
-        <ul>
+        <ul className="pokemons-list">
             {props.pokemons.map(poke=> {
                 return <Pokemon key={poke.name} {...poke}/>
             })}
