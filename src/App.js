@@ -3,6 +3,7 @@ import './App.css';
 import PokeList from './components/PokeList';
 import Pagination from './components/Pagination';
 import ItemPerPage from './components/ItemPerPage';
+import Modal from './components/Modal';
 
 const baseURL = 'https://pokeapi.co/api/v2';
 
@@ -16,7 +17,7 @@ class App extends Component {
       totalPages: 0,
       itemsPerPage: 10,
       copy: [],
-      showModal: false
+      showModal: true
     };
     this.handlePagination = this.handlePagination.bind(this);
     this.selectItemsPerPage = this.selectItemsPerPage.bind(this);
@@ -73,6 +74,10 @@ class App extends Component {
           items={this.state.totalPages}
           activePage={this.state.activePage}
           clickPagination={this.handlePagination}
+        />
+        <Modal
+          showModal={this.state.showModal}
+          toggleModal={this.toggleModal}
         />
       </div>
     );
