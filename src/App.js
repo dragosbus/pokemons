@@ -15,10 +15,12 @@ class App extends Component {
       limit: 60,
       totalPages: 0,
       itemsPerPage: 10,
-      copy: []
+      copy: [],
+      showModal: false
     };
     this.handlePagination = this.handlePagination.bind(this);
     this.selectItemsPerPage = this.selectItemsPerPage.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   handlePagination(index) {
@@ -37,6 +39,10 @@ class App extends Component {
       totalPages: this.state.limit / +(e.target.value)
     });
   }
+
+  toggleModal() {
+    this.setState({showModal: !this.state.showModal})
+  } 
 
   componentDidMount() {
     let data = localStorage.getItem('pokemons');
