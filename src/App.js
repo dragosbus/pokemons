@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import PokeList from './components/PokeList';
 import Pagination from './components/Pagination';
+import ItemPerPage from './components/ItemPerPage';
 
 const baseURL = 'https://pokeapi.co/api/v2';
 
@@ -13,18 +14,28 @@ class App extends Component {
       activePage: 0,
       limit: 60,
       totalPages: 0,
+      itemsPerPage: 10,
       copy: []
     };
     this.handlePagination = this.handlePagination.bind(this);
+    this.selectItemsPerPage = this.selectItemsPerPage.bind(this);
   }
 
   handlePagination(index) {
     this.setState(
       prevState => ({
         activePage: index - 1,
-        copy: prevState.pokemons.slice((index-1) * 10, index * 10)
+        copy: prevState.pokemons.slice((index-1) * this.state.itemsPerPage, index * this.state.itemsPerPage)
       })
     );
+  }
+
+  selectItemsPerPage(e) {
+    this.setState({
+      itemsPerPage: +(e.target.value),
+      copy: this.state.pokemons.slice(0, +(e.target.value)),
+      totalPages: this.state.limit / +(e.target.value)
+    });
   }
 
   componentDidMount() {
@@ -46,6 +57,11 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ItemPerPage
+          itemsPerPage={this.state.itemsPerPage}
+          selectItemsPerPage={this.selectItemsPerPage}
+          limit={this.state.limit}
+        />
         <PokeList pokemons={this.state.copy} />
         <Pagination
           items={this.state.totalPages}
