@@ -11,7 +11,7 @@ const Modal = props => {
           <h3>{pokemon ? pokemon.name : ''}</h3>
         </div>
         <div className="modal-body">
-          <PokeInfo stats={pokemon ? pokemon.stats : []} />
+          <PokeInfo sprites={pokemon.sprites} stats={pokemon.stats} />
         </div>
         <div className="modal-footer">
           <button className="close-modal" onClick={props.toggleModal}>

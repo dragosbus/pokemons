@@ -30,6 +30,7 @@ const PokeInfo = props => {
   };
   return (
     <div className="info">
+      <img src={props.sprites ? props.sprites.front_default : ''} />
       <Radar data={chartData} width="280" height="280" />
     </div>
   );
