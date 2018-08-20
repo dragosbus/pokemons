@@ -17,14 +17,13 @@ class App extends Component {
       totalPages: 0,
       itemsPerPage: 10,
       copy: [],
-      showModal: true,
-      pokeDetails: 0
+      showModal: false,
+      pokemonDetails: {}
     };
     this.handlePagination = this.handlePagination.bind(this);
     this.selectItemsPerPage = this.selectItemsPerPage.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.fetchPokeDetails = this.fetchPokeDetails.bind(this);
-    this.setIndexPokemon = this.selectItemsPerPage.bind(this);
   }
 
   handlePagination(index) {
@@ -45,15 +44,22 @@ class App extends Component {
   }
 
   toggleModal(index) {
-    this.setState({
-      showModal: !this.state.showModal,
-      pokeDetails: index
+    this.setState(prevState=>({
+      showModal: !prevState.showModal
+    }),()=>{
+      if(this.state.showModal) {
+        this.fetchPokeDetails(this.state.pokemons[index].url);
+      }
     })
   }
 
   fetchPokeDetails(url) {
     fetch(url).then(res=>res.json())
-      .then(data=>console.log(data));
+      .then(data=>{
+        this.setState({
+          pokemonDetails: data
+        })
+      });
   }
 
   componentDidMount() {
@@ -92,7 +98,7 @@ class App extends Component {
         <Modal
           showModal={this.state.showModal}
           toggleModal={this.toggleModal}
-          pokemon={this.state.pokemons[this.state.pokeDetails]}
+          pokemon={this.state.pokemonDetails}
         />
       </div>
     );

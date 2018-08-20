@@ -57,7 +57,7 @@
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
-  animation: slide-down 0.45s ease-in;
+  animation: slide-down 0.45s ease-in
 }
 
 .modal-off {
