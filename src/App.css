@@ -40,6 +40,12 @@
   padding: 1rem;
   border-radius: 5px;
   animation: fade-in 0.45s ease-in;
+  cursor: pointer;
+  transition: all 0.45s ease-in;
+}
+
+.pokemon:hover {
+  box-shadow: 0 0 8px rgb(4, 42, 146);
 }
 
 .overlay {
