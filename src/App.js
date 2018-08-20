@@ -17,7 +17,8 @@ class App extends Component {
       totalPages: 0,
       itemsPerPage: 10,
       copy: [],
-      showModal: true
+      showModal: true,
+      pokeDetails: 0
     };
     this.handlePagination = this.handlePagination.bind(this);
     this.selectItemsPerPage = this.selectItemsPerPage.bind(this);
@@ -78,6 +79,7 @@ class App extends Component {
         <Modal
           showModal={this.state.showModal}
           toggleModal={this.toggleModal}
+          pokemon={this.state.pokemons[this.state.pokeDetails]}
         />
       </div>
     );

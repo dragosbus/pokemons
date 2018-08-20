@@ -57,7 +57,6 @@
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
-  padding: 1rem;
   animation: slide-down 0.45s ease-in;
 }
 
@@ -69,16 +68,34 @@
   display: block;
 }
 
+.modal-title {
+  border-bottom: 1px solid rgba(14, 13, 13, 0.189);
+  width: 100%;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.modal-body {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(14, 13, 13, 0.189);
+}
+
+.modal-footer {
+  text-align: right;
+}
+
 .close-modal {
   background: rgba(255, 255, 255, 0.589);
   border: none;
   color: rgb(216, 52, 52);
-  font-size: 2.5rem;
+  font-size: 1.55rem;
   padding: 0.7rem 1.25rem;
-  border-radius: 50%;
+  border-radius: 7px;
   margin: 1rem;
   transition: background 0.45s ease-in;
   cursor: pointer;
+  box-shadow: 0 0 8px rgba(2,2,2,0.25);
 }
 
 .close-modal:hover {
