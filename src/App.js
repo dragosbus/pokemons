@@ -48,7 +48,7 @@ class App extends Component {
       showModal: !prevState.showModal
     }),()=>{
       if(this.state.showModal) {
-        this.fetchPokeDetails(this.state.pokemons[index].url);
+        this.fetchPokeDetails(this.state.copy[index].url);
       }
     })
   }
