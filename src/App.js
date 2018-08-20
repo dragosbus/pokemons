@@ -56,6 +56,7 @@ class App extends Component {
   fetchPokeDetails(url) {
     fetch(url).then(res=>res.json())
       .then(data=>{
+        console.log(data)
         this.setState({
           pokemonDetails: data
         })
@@ -99,6 +100,7 @@ class App extends Component {
           showModal={this.state.showModal}
           toggleModal={this.toggleModal}
           pokemon={this.state.pokemonDetails}
+          stats={this.state.pokemonDetails.stats}
         />
       </div>
     );
