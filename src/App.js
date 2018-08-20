@@ -69,7 +69,7 @@ class App extends Component {
           selectItemsPerPage={this.selectItemsPerPage}
           limit={this.state.limit}
         />
-        <PokeList pokemons={this.state.copy} />
+        <PokeList pokemons={this.state.copy} toggleModal={this.toggleModal}/>
         <Pagination
           items={this.state.totalPages}
           activePage={this.state.activePage}
