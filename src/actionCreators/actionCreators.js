@@ -7,6 +7,11 @@ export const getPokes = data => ({
     payload: data
 });
 
+export const activePage = index => ({
+    type: ActionTypes.ACTIVE_PAGE,
+    payload: index
+});
+
 export const getPokesMiddleware = (limit) => dispatch => {
     let data = localStorage.getItem('pokemons');
     if (data === null) {

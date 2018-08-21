@@ -113,7 +113,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  pokemons: state.pokemons
+  pokemons: state.pokemons,
+  limit: 60,
+  activePage: state.activePage
 });
 
 const mapDispatchToProps = dispatch =>({
