@@ -68,19 +68,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let data = localStorage.getItem('pokemons');
-    if (data === null) {
-      fetch(`${baseURL}/pokemon/?limit=${this.state.limit}&offset=0`)
-        .then(res => res.json())
-        .then(res => localStorage.setItem('pokemons', JSON.stringify(res.results)))
-        .catch(err => console.log(err));
-    } else {
-      this.setState({
-        pokemons: JSON.parse(data),
-        copy: JSON.parse(data).slice(0, 10),
-        totalPages: this.state.totalPages + this.state.limit / 10
-      });
-    }
+    this.props.getPokes(this.props.limit);
   }
 
   render() {
@@ -90,15 +78,15 @@ class App extends Component {
         <ItemPerPage
           itemsPerPage={this.state.itemsPerPage}
           selectItemsPerPage={this.selectItemsPerPage}
-          limit={this.state.limit}
+          limit={this.props.limit}
         />
         <PokeList 
-          pokemons={this.state.copy} 
+          pokemons={this.props.pokemons} 
           toggleModal={this.toggleModal} 
         />
         <Pagination
-          items={this.state.totalPages}
-          activePage={this.state.activePage}
+          items={this.props.totalPages}
+          activePage={this.props.activePage}
           clickPagination={this.handlePagination}
         />
         <Modal
@@ -115,7 +103,8 @@ class App extends Component {
 const mapStateToProps = state => ({
   pokemons: state.pokemons,
   limit: 60,
-  activePage: state.activePage
+  activePage: state.activePage,
+  totalPages: state.totalPages
 });
 
 const mapDispatchToProps = dispatch =>({

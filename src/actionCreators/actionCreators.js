@@ -12,14 +12,22 @@ export const activePage = index => ({
     payload: index
 });
 
+export const totalPages = limit => ({
+    type: ActionTypes.NUMBER_TOTAL_PAGES,
+    payload: limit
+});
+
 export const getPokesMiddleware = (limit) => dispatch => {
     let data = localStorage.getItem('pokemons');
     if (data === null) {
-      fetch(`${BASE_URL}/pokemon/?limit=${limit}&offset=0`)
-        .then(res => res.json())
-        .then(res => localStorage.setItem('pokemons', JSON.stringify(res.results)))
-        .catch(err => console.log(err));
+        fetch(`${BASE_URL}/pokemon/?limit=${limit}&offset=0`)
+            .then(res => res.json())
+            .then(res => {
+                localStorage.setItem('pokemons', JSON.stringify(res.results))
+            })
+            .catch(err => console.log(err));
     } else {
-        dispatch(getPokes(data));
+        dispatch(getPokes(JSON.parse(data)));
+        dispatch(totalPages(limit))
     }
 };
