@@ -9,7 +9,7 @@ const Pagination = props => {
     return(
         <div className="pagination">
             {
-                paginations.map(index=> <p key={index} onClick={()=>props.clickPagination(index)}>{index}</p>)
+                paginations.map(index=> <p key={index} onClick={()=>props.clickPagination(index-1)}>{index}</p>)
             }
         </div>
     );

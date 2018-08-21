@@ -15,28 +15,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pokemons: [],
-      activePage: 0,
-      limit: 60,
-      totalPages: 0,
-      itemsPerPage: 10,
-      copy: [],
       showModal: false,
       pokemonDetails: {}
     };
-    this.handlePagination = this.handlePagination.bind(this);
     this.selectItemsPerPage = this.selectItemsPerPage.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.fetchPokeDetails = this.fetchPokeDetails.bind(this);
-  }
-
-  handlePagination(index) {
-    this.setState(
-      prevState => ({
-        activePage: index - 1,
-        copy: prevState.pokemons.slice((index-1) * this.state.itemsPerPage, index * this.state.itemsPerPage)
-      })
-    );
   }
 
   selectItemsPerPage(e) {
@@ -87,7 +71,7 @@ class App extends Component {
         <Pagination
           items={this.props.totalPages}
           activePage={this.props.activePage}
-          clickPagination={this.handlePagination}
+          clickPagination={this.props.setActivePage}
         />
         <Modal
           showModal={this.state.showModal}
@@ -108,7 +92,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>({
-  getPokes: bindActionCreators(Actions.getPokesMiddleware, dispatch)
+  getPokes: bindActionCreators(Actions.getPokesMiddleware, dispatch),
+  setActivePage: bindActionCreators(Actions.setActivePage, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

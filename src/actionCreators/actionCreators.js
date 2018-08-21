@@ -7,7 +7,7 @@ export const getPokes = data => ({
     payload: data
 });
 
-export const activePage = index => ({
+export const setActivePage = index => ({
     type: ActionTypes.ACTIVE_PAGE,
     payload: index
 });
