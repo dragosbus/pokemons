@@ -9,7 +9,6 @@ import Pagination from './components/Pagination';
 import ItemPerPage from './components/ItemPerPage';
 import Modal from './components/Modal';
 
-const baseURL = 'https://pokeapi.co/api/v2';
 
 class App extends Component {
   constructor(props) {
@@ -18,17 +17,8 @@ class App extends Component {
       showModal: false,
       pokemonDetails: {}
     };
-    this.selectItemsPerPage = this.selectItemsPerPage.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.fetchPokeDetails = this.fetchPokeDetails.bind(this);
-  }
-
-  selectItemsPerPage(e) {
-    this.setState({
-      itemsPerPage: +(e.target.value),
-      copy: this.state.pokemons.slice(0, +(e.target.value)),
-      totalPages: this.state.limit / +(e.target.value)
-    });
   }
 
   toggleModal(index) {
