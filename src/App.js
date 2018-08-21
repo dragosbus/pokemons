@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as Actions from './actionCreators/actionCreators';
+
 import './App.css';
 import PokeList from './components/PokeList';
 import Pagination from './components/Pagination';
@@ -80,6 +84,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <ItemPerPage
@@ -107,4 +112,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  pokemons: state.pokemons
+});
+
+const mapDispatchToProps = dispatch =>({
+  getPokes: bindActionCreators(Actions.getPokesMiddleware, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
