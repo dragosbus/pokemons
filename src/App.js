@@ -56,7 +56,8 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props);
+    let{activePage, totalPages, pokemons} = this.props;
+    let copy = pokemons.slice(activePage * 10, (activePage + 1) * 10);
     return (
       <div>
         <ItemPerPage
@@ -65,7 +66,7 @@ class App extends Component {
           limit={this.props.limit}
         />
         <PokeList 
-          pokemons={this.props.pokemons} 
+          pokemons={copy} 
           toggleModal={this.toggleModal} 
         />
         <Pagination
