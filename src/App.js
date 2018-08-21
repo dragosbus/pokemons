@@ -56,23 +56,28 @@ class App extends Component {
   }
 
   render() {
-    let{activePage, totalPages, pokemons} = this.props;
-    let copy = pokemons.slice(activePage * 10, (activePage + 1) * 10);
+    let{limit, activePage, totalPages, itemsPerPage, pokemons, setActivePage, changeItemsPerPage} = this.props;
+
+    let copy = pokemons.slice(activePage * itemsPerPage, (activePage + 1) * itemsPerPage);
+
+    totalPages = limit / itemsPerPage;
+
+    console.log(this.props);
     return (
       <div>
         <ItemPerPage
-          itemsPerPage={this.state.itemsPerPage}
-          selectItemsPerPage={this.selectItemsPerPage}
-          limit={this.props.limit}
+          itemsPerPage={itemsPerPage}
+          selectItemsPerPage={changeItemsPerPage}
+          limit={limit}
         />
         <PokeList 
           pokemons={copy} 
           toggleModal={this.toggleModal} 
         />
         <Pagination
-          items={this.props.totalPages}
-          activePage={this.props.activePage}
-          clickPagination={this.props.setActivePage}
+          items={totalPages}
+          activePage={activePage}
+          clickPagination={setActivePage}
         />
         <Modal
           showModal={this.state.showModal}
@@ -89,12 +94,14 @@ const mapStateToProps = state => ({
   pokemons: state.pokemons,
   limit: 60,
   activePage: state.activePage,
-  totalPages: state.totalPages
+  totalPages: state.totalPages,
+  itemsPerPage: state.itemsPerPage
 });
 
 const mapDispatchToProps = dispatch =>({
   getPokes: bindActionCreators(Actions.getPokesMiddleware, dispatch),
-  setActivePage: bindActionCreators(Actions.setActivePage, dispatch)
+  setActivePage: bindActionCreators(Actions.setActivePage, dispatch),
+  changeItemsPerPage: bindActionCreators(Actions.changeItemsPerPage, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

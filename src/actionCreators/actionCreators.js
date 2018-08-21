@@ -17,6 +17,11 @@ export const totalPages = limit => ({
     payload: limit
 });
 
+export const changeItemsPerPage = n => ({
+    type: ActionTypes.CHANGE_ITEMS_PER_PAGE,
+    payload: n
+});
+
 export const getPokesMiddleware = (limit) => dispatch => {
     let data = localStorage.getItem('pokemons');
     if (data === null) {
