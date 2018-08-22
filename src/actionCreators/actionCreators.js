@@ -22,20 +22,14 @@ export const changeItemsPerPage = n => ({
     payload: n
 });
 
-export const toggleModal = index => ({
-    type: ActionTypes.TOGGLE_MODAL,
-    payload: index
+export const toggleModal = () => ({
+    type: ActionTypes.TOGGLE_MODAL
 });
 
 export const getPokemonDetails = data => ({
     type: ActionTypes.GET_DETAILS,
     payload: data
 });
-
-export const toggleModalMiddleWare = (index) => dispatch => {
-    console.log(index);
-    dispatch(toggleModal(index));
-};
 
 export const getPokesMiddleware = (limit) => dispatch => {
     let data = localStorage.getItem('pokemons');

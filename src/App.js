@@ -69,7 +69,7 @@ const mapDispatchToProps = dispatch =>({
   getPokes: bindActionCreators(Actions.getPokesMiddleware, dispatch),
   setActivePage: bindActionCreators(Actions.setActivePage, dispatch),
   changeItemsPerPage: bindActionCreators(Actions.changeItemsPerPage, dispatch),
-  toggleModal: bindActionCreators(Actions.toggleModalMiddleWare, dispatch),
+  toggleModal: bindActionCreators(Actions.toggleModal, dispatch),
   getDetails: bindActionCreators(Actions.fetchDetailsMiddleWare, dispatch)
 });
 

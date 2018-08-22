@@ -3,15 +3,15 @@ import Pokemon from './PokeElementList';
 
 const PokeList = props => {
 
-    const toggleModal = (index, url) => {
-        props.toggleModal(index);
+    const toggleModal = url => {
+        props.toggleModal();
         props.getDetails(url);
     };
 
     return(
         <ul className="pokemons-list">
             {props.pokemons.map((poke, i)=> {
-                return <Pokemon key={poke.name} {...poke} toggleModal={()=>toggleModal(i, props.pokemons[i].url)}/>
+                return <Pokemon key={poke.name} {...poke} toggleModal={()=>toggleModal(props.pokemons[i].url)}/>
             })}
         </ul>
     );
