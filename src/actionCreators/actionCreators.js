@@ -22,6 +22,21 @@ export const changeItemsPerPage = n => ({
     payload: n
 });
 
+export const toggleModal = index => ({
+    type: ActionTypes.TOGGLE_MODAL,
+    payload: index
+});
+
+export const getPokemonDetails = data => ({
+    type: ActionTypes.GET_DETAILS,
+    payload: data
+});
+
+export const toggleModalMiddleWare = (index) => dispatch => {
+    console.log(index);
+    dispatch(toggleModal(index));
+};
+
 export const getPokesMiddleware = (limit) => dispatch => {
     let data = localStorage.getItem('pokemons');
     if (data === null) {
@@ -35,4 +50,12 @@ export const getPokesMiddleware = (limit) => dispatch => {
         dispatch(getPokes(JSON.parse(data)));
         dispatch(totalPages(limit))
     }
+};
+
+export const fetchDetailsMiddleWare = url => dispatch => {
+    fetch(url).then(res => res.json())
+        .then(data => {
+            console.log(data);
+            dispatch(getPokemonDetails(data));
+        });
 };

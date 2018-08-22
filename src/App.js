@@ -13,32 +13,6 @@ import Modal from './components/Modal';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showModal: false,
-      pokemonDetails: {}
-    };
-    this.toggleModal = this.toggleModal.bind(this);
-    this.fetchPokeDetails = this.fetchPokeDetails.bind(this);
-  }
-
-  toggleModal(index) {
-    this.setState(prevState=>({
-      showModal: !prevState.showModal
-    }),()=>{
-      if(this.state.showModal) {
-        this.fetchPokeDetails(this.state.copy[index].url);
-      }
-    })
-  }
-
-  fetchPokeDetails(url) {
-    fetch(url).then(res=>res.json())
-      .then(data=>{
-        console.log(data)
-        this.setState({
-          pokemonDetails: data
-        })
-      });
   }
 
   componentDidMount() {
@@ -46,7 +20,7 @@ class App extends Component {
   }
 
   render() {
-    let{limit, activePage, totalPages, itemsPerPage, pokemons, setActivePage, changeItemsPerPage} = this.props;
+    let{limit, activePage, totalPages, itemsPerPage, pokemons, setActivePage, changeItemsPerPage, toggleModal, showModal, pokemonDetails, getDetails} = this.props;
 
     let copy = pokemons.slice(activePage * itemsPerPage, (activePage + 1) * itemsPerPage);
 
@@ -62,7 +36,8 @@ class App extends Component {
         />
         <PokeList 
           pokemons={copy} 
-          toggleModal={this.toggleModal} 
+          toggleModal={toggleModal}
+          getDetails={getDetails}
         />
         <Pagination
           items={totalPages}
@@ -70,10 +45,10 @@ class App extends Component {
           clickPagination={setActivePage}
         />
         <Modal
-          showModal={this.state.showModal}
-          toggleModal={this.toggleModal}
-          pokemon={this.state.pokemonDetails}
-          stats={this.state.pokemonDetails.stats}
+          showModal={showModal}
+          toggleModal={toggleModal}
+          pokemon={pokemonDetails}
+          stats={pokemonDetails.stats}
         />
       </div>
     );
@@ -85,13 +60,17 @@ const mapStateToProps = state => ({
   limit: 60,
   activePage: state.activePage,
   totalPages: state.totalPages,
-  itemsPerPage: state.itemsPerPage
+  itemsPerPage: state.itemsPerPage,
+  showModal: state.showModal,
+  pokemonDetails: state.details
 });
 
 const mapDispatchToProps = dispatch =>({
   getPokes: bindActionCreators(Actions.getPokesMiddleware, dispatch),
   setActivePage: bindActionCreators(Actions.setActivePage, dispatch),
-  changeItemsPerPage: bindActionCreators(Actions.changeItemsPerPage, dispatch)
+  changeItemsPerPage: bindActionCreators(Actions.changeItemsPerPage, dispatch),
+  toggleModal: bindActionCreators(Actions.toggleModalMiddleWare, dispatch),
+  getDetails: bindActionCreators(Actions.fetchDetailsMiddleWare, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
