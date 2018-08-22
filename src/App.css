@@ -92,6 +92,18 @@
   text-align: right;
 }
 
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; 
+}
+
+.info img {
+  width: 10rem;
+  height: 10rem;
+}
+
 .close-modal {
   background: rgba(255, 255, 255, 0.589);
   border: none;
