@@ -11,9 +11,6 @@ import Modal from './components/Modal';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.getPokes(this.props.limit);
@@ -26,7 +23,6 @@ class App extends Component {
 
     totalPages = limit / itemsPerPage;
 
-    console.log(this.props);
     return (
       <div>
         <ItemPerPage
